@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hexo博客搭建心得" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo博客搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%BF%83%E5%BE%97/" class="article-date">
-  <time datetime="2020-05-05T06:06:20.574Z" itemprop="datePublished">2020-05-05</time>
+    <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2020-05-05T14:59:50.000Z" itemprop="datePublished">2020-05-05</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%BF%83%E5%BE%97/">hexo博客搭建心得</a>
+      <a class="article-title" href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>
     </h1>
   
 
@@ -86,12 +86,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="win10搭建hexo博客"><a href="#win10搭建hexo博客" class="headerlink" title="win10搭建hexo博客"></a>win10搭建hexo博客</h2><hr>
-
+        <hr>
+<h2 id="win10搭建hexo博客"><a href="#win10搭建hexo博客" class="headerlink" title="win10搭建hexo博客"></a>win10搭建hexo博客</h2><p>1.安装Nodejs</p>
+<p>2.安装淘宝的cnpm 管理器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=http://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>3.创建blog目录并进入到blog目录中，安装hexo框架</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>4.下载git</p>
+<p>5.在blog目录中，打开git bash，首先生成ssh_key</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C 邮箱地址</span><br></pre></td></tr></table></figure>
+<p>在github账号中添加生成的ssh_key<br><img src="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/add_sshkey.jpg" alt></p>
+<p>6.生成博客 初始化博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>7.启动hexo博客，访问localhost:4000，就可以看到本地博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%BF%83%E5%BE%97/" data-id="ck9tj71v00001wsv14giz67rk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-id="ck9u2f82v000114v1ad4xamlx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -140,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/02/hello-world/" data-id="ck9tj71uj0000wsv18lkpfbrg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/02/hello-world/" data-id="ck9u2f82r000014v12sds87pm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -181,7 +193,7 @@
       <ul>
         
           <li>
-            <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%BF%83%E5%BE%97/">hexo博客搭建心得</a>
+            <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>
           </li>
         
           <li>
