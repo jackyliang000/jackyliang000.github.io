@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-多线程感悟-一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/" class="article-date">
+  <time datetime="2020-05-07T14:10:17.000Z" itemprop="datePublished">2020-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/">多线程感悟(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、Synchronized</p>
+<p>1.1 Synchronized作用范围</p>
+<p>当Synchronized作用在方法时</p>
+<p>创建一个SynchronizedMethod测试类（继承Runnable接口），用Synchronized修饰method方法，重写run()方法，调用method()<br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method.jpg" alt><br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method_test.jpg" alt></p>
+<p>可以看到，这里优先执行完thread1，然后再执行thread2</p>
+<p>稍微修改下代码，创建两个SynchronizedMethod实例<br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method2.jpg" alt><br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method2_test.jpg" alt></p>
+<p>thread1和thread2同时执行，没有互斥</p>
+<p>当Synchronized作用在方法时，会锁住调用该方法的对象（同一实例，不同实例并不会互斥）</p>
+<p>当Synchronized作用在静态方法时<br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_static.jpg" alt><br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_static_test.jpg" alt></p>
+<p>当Synchronized作用在方法时，会锁住调用该类的所有对象</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/" data-id="ck9wv97xs0002r4v13xkh2u5z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hexo博客搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-date">
@@ -103,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-id="ck9u2f82v000114v1ad4xamlx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-id="ck9wv97xq0001r4v15esd7e21" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/02/hello-world/" data-id="ck9u2f82r000014v12sds87pm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/02/hello-world/" data-id="ck9wv97xm0000r4v17gatbyl2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -191,6 +237,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/">多线程感悟(一)</a>
+          </li>
         
           <li>
             <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>

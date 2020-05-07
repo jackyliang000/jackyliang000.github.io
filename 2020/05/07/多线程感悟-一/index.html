@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>多线程感悟(一) | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、Synchronized 1.1 Synchronized作用范围 当Synchronized作用在方法时 创建一个SynchronizedMethod测试类（继承Runnable接口），用Synchronized修饰method方法，重写run()方法，调用method() 可以看到，这里优先执行完thread1，然后再执行thread2 稍微修改下代码，创建两个SynchronizedMe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程感悟(一)">
+<meta property="og:url" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、Synchronized 1.1 Synchronized作用范围 当Synchronized作用在方法时 创建一个SynchronizedMethod测试类（继承Runnable接口），用Synchronized修饰method方法，重写run()方法，调用method() 可以看到，这里优先执行完thread1，然后再执行thread2 稍微修改下代码，创建两个SynchronizedMe">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method_test.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method2_test.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_static.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_static_test.jpg">
+<meta property="article:published_time" content="2020-05-07T14:10:17.000Z">
+<meta property="article:modified_time" content="2020-05-07T14:28:42.545Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-多线程感悟-一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/" class="article-date">
+  <time datetime="2020-05-07T14:10:17.000Z" itemprop="datePublished">2020-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      多线程感悟(一)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、Synchronized</p>
+<p>1.1 Synchronized作用范围</p>
+<p>当Synchronized作用在方法时</p>
+<p>创建一个SynchronizedMethod测试类（继承Runnable接口），用Synchronized修饰method方法，重写run()方法，调用method()<br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method.jpg" alt><br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method_test.jpg" alt></p>
+<p>可以看到，这里优先执行完thread1，然后再执行thread2</p>
+<p>稍微修改下代码，创建两个SynchronizedMethod实例<br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method2.jpg" alt><br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_method2_test.jpg" alt></p>
+<p>thread1和thread2同时执行，没有互斥</p>
+<p>当Synchronized作用在方法时，会锁住调用该方法的对象（同一实例，不同实例并不会互斥）</p>
+<p>当Synchronized作用在静态方法时<br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_static.jpg" alt><br><img src="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/Syn_static_test.jpg" alt></p>
+<p>当Synchronized作用在方法时，会锁住调用该类的所有对象</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/" data-id="ck9wv97xs0002r4v13xkh2u5z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hexo博客搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/">多线程感悟(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/02/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
