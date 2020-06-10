@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>springcloud学习 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、服务注册中心 euraka: AP,高可用分布式治理服务中心，服务注册，服务发现。     集群：相互注册，相互守望     dicovery获取服务的名称，IP，端口号等信息     自我保护机制（不会马上删除故障服务）  zookeeper:CP，没有图形界面  consol:CP  nacos：springcloud-alibaba二、负载均衡 ribbon: loadBalanced+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springcloud学习">
+<meta property="og:url" content="http://yoursite.com/2020/06/10/springcloud%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、服务注册中心 euraka: AP,高可用分布式治理服务中心，服务注册，服务发现。     集群：相互注册，相互守望     dicovery获取服务的名称，IP，端口号等信息     自我保护机制（不会马上删除故障服务）  zookeeper:CP，没有图形界面  consol:CP  nacos：springcloud-alibaba二、负载均衡 ribbon: loadBalanced+">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-10T13:02:35.000Z">
+<meta property="article:modified_time" content="2020-06-10T13:03:46.770Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-springcloud学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/10/springcloud%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-06-10T13:02:35.000Z" itemprop="datePublished">2020-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      springcloud学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、服务注册中心</p>
+<pre><code>euraka: AP,高可用分布式治理服务中心，服务注册，服务发现。
+    集群：相互注册，相互守望
+    dicovery获取服务的名称，IP，端口号等信息
+    自我保护机制（不会马上删除故障服务）
+
+zookeeper:CP，没有图形界面
+
+consol:CP
+
+nacos：springcloud-alibaba</code></pre><p>二、负载均衡</p>
+<pre><code>ribbon: loadBalanced+restTemplate实现
+    轮询算法，随机算法等，继承AbstractLoadBalanced类实现IRule接口
+    轮询算法：请求次数%服务数，取余（discovery+乐观锁、自旋锁）
+
+feign/openFeign:
+    面向接口（通过配置FeignClient）
+    feign已经停更
+    本身已经集成ribbon负载均衡算法</code></pre><p>三、熔断降级(hystrix)</p>
+<pre><code>服务降级：抛出异常，超时，宕机之后要有降级回调方法（PS：JMeter压力测试） 
+    服务提供者：DefaultProperties，全局降级回调方法
+    服务消费者：feign+yhstrix(@feignClient(...fallbace=&quot;&quot;)),创建一个hystrix类实现feignService接口
+
+服务熔断：应对微服务雪崩效应的的一种链路保护机制，当某个服务频繁返回错误信息或超时，会进行服务降级，进而熔断该服务节点。
+          服务降级-&gt;服务熔断—&gt;尝试恢复
+          配置：窗口时间内，达到请求次数的一定百分比数量失败后，断路器将半开，如果下一个请求还是失败，则熔断
+          流程：构造hystrixCommand构造器-&gt;执行命令-&gt; 查看缓存 -&gt; 查看断路器是否打开(打开了则返回fallback) -&gt; 
+          查看线程池，信号量是否已满(满了则返回fallback) -&gt; 执行方法hystrixCommand.run()（超时，异常）-&gt;
+          hystrixCommand向断路器汇报状态并统计是否开启断路器 -&gt; 降级
+
+服务限流</code></pre><p>四、网关<br>    zuul 1.x:已停更，BIO模型（底层由servlet2.5实现），效率低</p>
+<pre><code>zuul 2.x:跳票，没推出（异步非阻塞+长连接）
+
+GateWay:Springcloud整合推出，整合了spring5,webflux,netty等技术，异步非阻塞Reactor模式，效率高
+
+    动态路由：构建网关的基本模块，由ID+URL组成，由一系列断言和过滤器组成
+    断言（predicate）可以匹配HTTP请求中的内容（匹配条件）
+    过滤(fliter) 对路由进行修改（拦截器）
+    继承hystrix</code></pre><p>五、配置中心</p>
+<pre><code>集中管理配置文件，不同环境不同配置（dev/test/beta...），运行期间动态更改配置文件，配置信息以REST接口暴露
+
+application.yml是用户级配置文件，bootstrap.yml是系统级（优先级更高）</code></pre><p>六、消息总线Bus</p>
+<pre><code>可以实现Springcloud config配置动态刷新，整合了java事件处理机制以及消息中间件，目前支持rabbitMQ和kafka
+
+什么是总线？
+    在微服务架构中，通常使用轻量级的消息代理来构建一个共用主题，并让系统中的所有微服务连接上，
+    由该主题产生的消息会被所有实例监听以及消费
+
+原理
+    configServer实例监听MQ中同一个topic，当配置发生更新，会把消息放入topic中，其他服务会得到通知</code></pre><p>七、消息驱动</p>
+<pre><code>屏蔽底层消息中间件的差异，降低切换成本，统一消息的编程模型，实现解耦
+
+Springcloud Stream
+    构建消息驱动的微服务框架。应用程序通过inputs(消费者),outputs(生产者)与springcloud stream中的binder对象进行交互
+    通信方式遵循了发布-订阅模式
+
+    binder: 连接中间件，屏蔽差异
+
+    channel:通道，是队列的一种抽象，实现消息存储和转发的媒介
+
+    source/sink:输入（接收消息）与输出（发布消息）
+
+分组消费与持久化
+
+    消费：存在重复消费的问题。不同组会重复消费，同一组内会有竞争关系（只有一个可以消费），配置group属性
+
+    持久化：配置上group属性可以持久化，避免消息丢失</code></pre><p>八、链路跟踪</p>
+<pre><code>在微服务框架中，每一个客户端请求都会经过多个不同服务节点调用来协同产生最后结果，形成一条负责的分布式调用链路
+
+springcloud sleuth
+    提供了一套完整的服务跟踪解决方案
+    Trace:一条链路一个trace_id，唯一标识
+    span:调用链路的来源，一次请求一个span
+    parent:上一个请求的span
+
+zipkin
+    图形化展示</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/10/springcloud%E5%AD%A6%E4%B9%A0/" data-id="ckb9d9asn0001sgv1bgunadzp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">多线程感悟(一)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/10/springcloud%E5%AD%A6%E4%B9%A0/">springcloud学习</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%84%9F%E6%82%9F-%E4%B8%80/">多线程感悟(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/05/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/02/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
